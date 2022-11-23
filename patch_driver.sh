@@ -2,6 +2,10 @@
 
 set -eu -o pipefail
 
+echo "AdityaGarg8/linux-t2-patches removed from github, probably not needed anymore? exit"
+
+exit
+
 # set -x
 
 ### Apple T2 drivers commit hashes
