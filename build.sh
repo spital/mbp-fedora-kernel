@@ -13,11 +13,13 @@ MBP_VERSION=mbp
 
 
 export fedver=fc37
-FEDORA_KERNEL_VERSION=6.0.12-300.$fedver
+FEDORA_KERNEL_VERSION=6.1.0-65.$fedver
+FEDORA_KERNEL_VERSION_SRC=6.1.0-65.fc38
+# EDIT :: yum-repo/mbp-fedora-t2-config  Version: 6.0  Release: 1
 REPO_PWD=$(pwd)
 
 ### Debug commands
-echo "FEDORA_KERNEL_VERSION=$FEDORA_KERNEL_VERSION"
+echo "kernel src=$FEDORA_KERNEL_VERSION_SRC; FEDORA_KERNEL_VERSION=$FEDORA_KERNEL_VERSION"
 
 pwd
 echo "CPU threads: $(nproc --all)"
@@ -31,8 +33,8 @@ rpmdev-setuptree
 
 ## Install the kernel source and finish installing dependencies
 cd ${RPMBUILD_PATH}/SOURCES
-koji download-build --arch=src kernel-${FEDORA_KERNEL_VERSION}
-rpm -Uvh kernel-${FEDORA_KERNEL_VERSION}.src.rpm
+koji download-build --arch=src kernel-${FEDORA_KERNEL_VERSION_SRC}
+rpm -Uvh kernel-${FEDORA_KERNEL_VERSION_SRC}.src.rpm
 
 cd ${RPMBUILD_PATH}/SPECS
 dnf -y builddep kernel.spec
