@@ -16,9 +16,13 @@ MBP_VERSION=mbp
 
 
 export fedver=fc37
-FEDORA_KERNEL_VERSION=6.1.0-65.$fedver
-FEDORA_KERNEL_VERSION_SRC=6.1.0-65.fc38
-# EDIT :: yum-repo/mbp-fedora-t2-config  Version: 6.0  Release: 1
+#FEDORA_KERNEL_VERSION=6.1.0-65.$fedver
+FEDORA_KERNEL_VERSION=6.1.2-200.$fedver  # target
+#FEDORA_KERNEL_VERSION_SRC=6.1.0-65.fc38
+FEDORA_KERNEL_VERSION_SRC=6.1.2-200.fc37 # source
+# TODO! EDIT :: yum-repo/mbp-fedora-t2-config  Version: 6.0  Release: 1
+sed -i -e 's/Version: 6.1.0/Version: 6.1.2/g' ./yum-repo/mbp-fedora-t2-config/rpm.spec
+sed -i -e 's/Release: 65%/Release: 200%/g' ./yum-repo/mbp-fedora-t2-config/rpm.spec
 # TODO add rustc 1.62 and bindgen 0.56 https://lwn.net/Articles/910762/
 RUST_VER="1.62.0"
 BINDGEN_VER="0.56.0"
