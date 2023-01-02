@@ -2,6 +2,9 @@
 
 set -eu -o pipefail
 
+
+echo " TODO :: check why it is not building rust module - or is it ? ... sleep 30" ; sleep 30
+
 [[ $(df -k --output=avail / | tail -1) -gt 19777111 ]] || (echo "Free disk space is < 20 GB, build will fail, are you sure ?" && sleep 15)
 
 ## Update fedora docker image tag, because kernel build is using `uname -r` when defining package version variable
@@ -16,17 +19,23 @@ export fedver=fc37
 FEDORA_KERNEL_VERSION=6.1.0-65.$fedver
 FEDORA_KERNEL_VERSION_SRC=6.1.0-65.fc38
 # EDIT :: yum-repo/mbp-fedora-t2-config  Version: 6.0  Release: 1
+# TODO add rustc 1.62 and bindgen 0.56 https://lwn.net/Articles/910762/
+RUST_VER="1.62.0"
+BINDGEN_VER="0.56.0"
 REPO_PWD=$(pwd)
 
 ### Debug commands
 echo "kernel src=$FEDORA_KERNEL_VERSION_SRC; FEDORA_KERNEL_VERSION=$FEDORA_KERNEL_VERSION"
-
-pwd
-echo "CPU threads: $(nproc --all)"
+echo "Repo dir: $REPO_PWD; CPU threads: $(nproc --all) (takes ~17 min with 24 threads)"
 grep 'model name' /proc/cpuinfo | uniq
 
 ### Dependencies
-dnf install -y fedpkg fedora-packager rpmdevtools ncurses-devel pesign git libkcapi libkcapi-devel libkcapi-static libkcapi-tools zip curl dwarves libbpf rpm-sign
+dnf install -y fedpkg fedora-packager rpmdevtools ncurses-devel pesign git libkcapi libkcapi-devel libkcapi-static libkcapi-tools zip curl dwarves libbpf rpm-sign \
+  gcc
+curl https://sh.rustup.rs -sSf | bash -s -- -y --default-toolchain "${RUST_VER}"
+source "$HOME/.cargo/env"
+rustup component add rust-src
+cargo install "bindgen@$BINDGEN_VER"
 
 ## Set home build directory
 rpmdev-setuptree
@@ -59,6 +68,7 @@ echo >&2 "===]> Info: Applying kconfig changes... ";
 echo "CONFIG_APPLE_BCE=m" >> "${RPMBUILD_PATH}/SOURCES/kernel-local"
 echo "CONFIG_APPLE_IBRIDGE=m" >> "${RPMBUILD_PATH}/SOURCES/kernel-local"
 echo "CONFIG_BT_HCIBCM4377=m" >> "${RPMBUILD_PATH}/SOURCES/kernel-local"
+echo "CONFIG_RUST=y" >> "${RPMBUILD_PATH}/SOURCES/kernel-local"
 
 ### Change buildid to mbp
 echo >&2 "===]> Info: Setting kernel name...";
