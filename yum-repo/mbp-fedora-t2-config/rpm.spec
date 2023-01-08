@@ -1,6 +1,6 @@
 Name: mbp-fedora-t2-config
 Version: 6.2.0
-Release: 0rc2.18%{?dist}
+Release: 0rc2.20230105git41c03ba9beea.20%{?dist}
 Summary: System configuration for mbp-fedora on Apple T2 Macs.
 
 License: GPLv2+
