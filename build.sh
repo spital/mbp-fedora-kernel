@@ -13,7 +13,12 @@ MBP_VERSION=mbp
 
 
 export fedver=fc37
-FEDORA_KERNEL_VERSION=6.0.8-300.$fedver
+FEDORA_KERNEL_VERSION=6.0.18-300.$fedver
+#FEDORA_KERNEL_VERSION_SRC=6.1.0-65.fc38
+#FEDORA_KERNEL_VERSION_SRC=$FEDORA_KERNEL_VERSION  # source
+# no '-' in release !
+F=./yum-repo/mbp-fedora-t2-config/rpm.spec
+sed -e 's/Version: 6.1.2/Version: 6.0.18/g' $F.src | sed -e 's/Release: 200%/Release: 300%/g' > $F
 
 REPO_PWD=$(pwd)
 

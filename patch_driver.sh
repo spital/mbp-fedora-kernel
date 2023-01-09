@@ -29,9 +29,9 @@ rm -rf "${PATCHES_DIR}"
 mkdir -p "${PATCHES_DIR}"
 
 ### AppleSMC and BT aunali fixes
-git clone --single-branch --branch ${APPLE_SMC_DRIVER_BRANCH_NAME} ${APPLE_SMC_DRIVER_GIT_URL}
-cd "${APPLE_SMC_REPO_NAME}" || exit
-git checkout ${APPLE_SMC_DRIVER_COMMIT_HASH}
+#git clone --single-branch --branch ${APPLE_SMC_DRIVER_BRANCH_NAME} ${APPLE_SMC_DRIVER_GIT_URL}
+#cd "${APPLE_SMC_REPO_NAME}" || exit
+#git checkout ${APPLE_SMC_DRIVER_COMMIT_HASH}
 cd ..
 while IFS= read -r file; do
   echo "adding ${file}"
