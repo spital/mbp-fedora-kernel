@@ -14,7 +14,7 @@ MBP_VERSION=mbp
 #FEDORA_KERNEL_VERSION=5.19.15-200.fc36
 # ?? https://fedoramagazine.org/contribute-at-the-fedora-linux-37-test-week-for-kernel-6-0/
 
-
+# 6.2.0-0.rc6.20230203git66a87fff1a87.47.fc38
 export fedver=fc37
 export relver=6.2.0
 export relrel=0.rc3.20230113gitd9fc1511728c.28
