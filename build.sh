@@ -16,7 +16,7 @@ MBP_VERSION=mbp
 
 
 export fedver=fc37
-export relver=6.1.6
+export relver=6.1.9
 export relrel=200
 #FEDORA_KERNEL_VERSION=6.1.0-65.$fedver
 FEDORA_KERNEL_VERSION=$relver-$relrel.$fedver  # target
