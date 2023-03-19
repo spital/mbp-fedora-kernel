@@ -16,13 +16,14 @@ MBP_VERSION=mbp
 
 # 6.2.0-0.rc6.20230203git66a87fff1a87.47.fc38
 export fedver=fc37
-export relver=6.2.0
-export relrel=0.rc3.20230113gitd9fc1511728c.28
+export relver=6.2.7
+export relrel=200
 #FEDORA_KERNEL_VERSION=6.1.0-65.$fedver
 FEDORA_KERNEL_VERSION=$relver-$relrel.$fedver  # target
 #FEDORA_KERNEL_VERSION_SRC=6.1.0-65.fc38
 #FEDORA_KERNEL_VERSION_SRC=6.2.0-0.rc2.18.fc38 # source
-FEDORA_KERNEL_VERSION_SRC=$relver-$relrel.fc38 # source
+#FEDORA_KERNEL_VERSION_SRC=$relver-$relrel.fc38 # source
+FEDORA_KERNEL_VERSION_SRC=$relver-$relrel.$fedver  # source
 # no '-' in release !
 F=./yum-repo/mbp-fedora-t2-config/rpm.spec
 sed -e "s/Version: 6.1.2/Version: $relver/g" $F.src | sed -e "s/Release: 200%/Release: $relrel%/g" > $F
